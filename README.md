@@ -5,9 +5,13 @@ Persistency with MongoDB cloud.
 
 # Starting server
 ****
-Docker solution :	
-								Linux: docker-compose build && docker-compose up
-								Windows powershell: docker-compose build; docker-compose up
+Docker solution :
+````
+Linux: 		docker-compose build && docker-compose up
+Windows powershell: 	docker-compose build; docker-compose up
+````
+								
+								
 
 Node solution :	node app.js
 
@@ -17,7 +21,7 @@ Data received via JSON format.
 
 Create user
 ````
-$/api/auth/signup
+/api/auth/signup
 format:
 {
 	username,
@@ -28,7 +32,7 @@ format:
 
 Authentify user
 ````
-$/api/auth/signin
+/api/auth/signin
 format:
 {
 	usersname,
@@ -38,7 +42,7 @@ format:
 
 Check user permissions
 ````
-$/api/test/user
+/api/test/user
 format:
 {
 	email
@@ -47,7 +51,7 @@ format:
 
 Check admin permissions
 ````
-$/api/test/admin
+/api/test/admin
 format:
 {
 	email

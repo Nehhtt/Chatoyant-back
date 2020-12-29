@@ -1,4 +1,3 @@
-import { ApplicationError } from '../helpers/errors';
 import Room from '../models/room.model';
 import User from '../models/user.model';
 

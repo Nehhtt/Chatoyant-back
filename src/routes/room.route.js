@@ -5,10 +5,14 @@ import roomController from '../controllers/room.controller';
 import chatController from '../controllers/chat.controller';
 import roomAuth from '../middleware/roomAuth';
 
-const { createChat } = chatController;
 const {
-  getUserRooms, createRoom, deleteRoom, inviteUser,
+  createChat, deleteChat,
+} = chatController;
+
+const {
+  getUserRooms, createRoom, deleteRoom, inviteUser, kickUser,
 } = roomController;
+
 const { authenticate } = authentication;
 const { roomAuthCheck } = roomAuth;
 const roomRouter = Router();
@@ -18,6 +22,9 @@ roomRouter.post('/createRoom', authenticate, catchAsync(createRoom));
 roomRouter.delete('/deleteRoom', authenticate, roomAuthCheck, catchAsync(deleteRoom));
 
 roomRouter.post('/inviteUser', authenticate, roomAuthCheck, catchAsync(inviteUser));
+roomRouter.post('/kickUser', authenticate, roomAuthCheck, catchAsync(kickUser));
 
 roomRouter.post('/createChat', authenticate, roomAuthCheck, catchAsync(createChat));
+roomRouter.delete('/deleteChat', authenticate, roomAuthCheck, catchAsync(deleteChat));
+
 export default roomRouter;

@@ -1,5 +1,5 @@
-#NodeJs linked files
-node_modules/
-npm-debug.log
-package-lock.json
-test/*.log
+node_modules
+.env
+build
+.git
+.vscode

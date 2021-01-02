@@ -3,10 +3,10 @@ import logger from 'morgan';
 import { config } from 'dotenv';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import errorHandler from './middleware/errorHandler';
 import authRouter from './routes/auth.route';
 import roomRouter from './routes/room.route';
-import cors from 'cors';
 
 config();
 

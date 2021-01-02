@@ -11,7 +11,7 @@ import roomRouter from './routes/room.route';
 config();
 
 const corsOptions = {
-  origin: 'http://*',
+  origin: '*',
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 

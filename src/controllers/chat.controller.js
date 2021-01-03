@@ -84,7 +84,7 @@ export default {
       if (!currentRoom || !currentChat || !currentUser) {
         return undefined;
       }
-      const message = { message: req.message, user: currentUser, date: req.date };
+      const message = { message: req.message, user: currentUser.userName, date: req.date };
       currentChat.chat.push(message);
       currentChat.save();
       return message;

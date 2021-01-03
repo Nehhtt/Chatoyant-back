@@ -36,8 +36,11 @@ io.on('connection', (socket) => {
     socket.join(room);
     socket.on('chat message', (message) => {
       console.log(message);
-      newChatMessage(message);
-      socket.to(room).emit('received message', message);
+      newChatMessage(message).then((userMessage) => {
+        if (userMessage !== undefined) {
+          socket.to(room).emit('received message', userMessage);
+        }
+      });
     });
   });
 

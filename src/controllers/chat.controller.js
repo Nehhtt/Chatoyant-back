@@ -82,12 +82,12 @@ export default {
         $or: [{ email: req.email }, { userName: req.userName }],
       });
       if (!currentRoom || !currentChat || !currentUser) {
-        return;
+        return undefined;
       }
-
-      currentChat.chat.push({ message: req.message, user: currentUser, date: req.date });
+      const message = { message: req.message, user: currentUser, date: req.date };
+      currentChat.chat.push(message);
       currentChat.save();
-      return;
+      return message;
     } catch (error) {
       throw new ApplicationError(500, error);
     }

@@ -76,16 +76,15 @@ export default {
   },
   newChatMessage: async (req) => {
     try {
-      const currentRoom = await Room.findOne({ roomName: req.roomName });
       const currentChat = await Chat.findOne({ chatName: req.chatName });
       const currentUser = await User.findOne({
-        $or: [{ email: req.email }, { userName: req.userName }],
+        $or: [{ email: req.user }, { userName: req.user }],
       });
-      if (!currentRoom || !currentChat || !currentUser) {
+      if (!currentChat || !currentUser) {
         return undefined;
       }
-      const message = { message: req.message, user: currentUser.userName, date: req.date };
-      currentChat.chat.push(message);
+      const message = { message: req.message, sender: currentUser.userName, date: req.date };
+      currentChat.chat = [...currentChat.chat, message];
       currentChat.save();
       return message;
     } catch (error) {

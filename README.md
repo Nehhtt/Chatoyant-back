@@ -19,3 +19,14 @@ Chatoyant-back online at : https://chatoyant-back.herokuapp.com/
 
 ## Routes documentation
 Documentation: https://documenter.getpostman.com/view/9835604/TVsrGA2D
+
+## Versions
+
+**Dernière version stable :** 1.0
+**Dernière version :** 1.0
+
+## Auteurs
+
+- **Nicolas Cathala**
+- **Léa David**
+- **Lucas Aguillon**

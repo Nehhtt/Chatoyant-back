@@ -74,4 +74,22 @@ export default {
       throw new ApplicationError(500, error);
     }
   },
+  newChatMessage: async (req) => {
+    try {
+      const currentRoom = await Room.findOne({ roomName: req.roomName });
+      const currentChat = await Chat.findOne({ chatName: req.chatName });
+      const currentUser = await User.findOne({
+        $or: [{ email: req.email }, { userName: req.userName }],
+      });
+      if (!currentRoom || !currentChat || !currentUser) {
+        return;
+      }
+
+      currentChat.chat.push({ message: req.message, user: currentUser, date: req.date });
+      currentChat.save();
+      return;
+    } catch (error) {
+      throw new ApplicationError(500, error);
+    }
+  },
 };

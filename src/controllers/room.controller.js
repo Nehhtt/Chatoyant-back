@@ -81,7 +81,7 @@ export default {
         return res.status(404).json({
           status: 'error',
           error: {
-            message: `${!req.user.email ? req.user.userName : req.user.email} user not found.`,
+            message: `${!req.body.email ? req.body.userName : req.user.email} user not found.`,
           },
         });
       }

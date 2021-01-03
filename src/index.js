@@ -1,32 +1,53 @@
 import http from 'http';
 import debug from 'debug';
 import { config } from 'dotenv';
-import { ServerIo } from 'socket.io';
 import socketioJwt from 'socketio-jwt';
+import chatController from './controllers/chat.controller';
 import app from './app';
 import './db/mongoose';
 
 config();
 
+const {
+  createChat, deleteChat, newChatMessage,
+} = chatController;
 const DEBUG = debug('dev');
 const PORT = process.env.PORT || 8080;
 const jwtPublicSecret = process.env.JWT_PUBLIC_SECRET.replace(/\\n/g, '\n');
 
 const server = http.createServer(app);
-const io = new ServerIo(server, {
+
+const io = require('socket.io')(server, {
   cors: {
-    origin: 'http://localhost:8080',
+    origin: '*',
     methods: ['GET', 'POST', 'DEL'],
   },
 });
 
-io.use(socketioJwt.authorize({
-  secret: jwtPublicSecret,
-  handshake: true,
-}));
+// io.use(socketioJwt.authorize({
+//   secret: jwtPublicSecret,
+//   handshake: true,
+//   callback: false,
+// }));
 
 io.on('connection', (socket) => {
+  DEBUG('User connected to the socket');
+  socket.on('connect room', (room) => {
+    socket.join(room);
+    socket.on('chat message', (message) => {
+      console.log(message);
+      newChatMessage(message);
+      socket.to(room).emit('received message', message);
+    });
+  });
 
+  socket.on('leave room', (room) => {
+    socket.leave(room);
+  });
+
+  socket.on('disconnect', (reason) => {
+    DEBUG(`User disconnected from socket: ${reason}`);
+  });
 });
 
 process.on('uncaughtException', (error) => {

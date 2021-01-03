@@ -18,6 +18,10 @@
   "dependencies": {
     "@babel/register": "^7.10.1",
     "@babel/runtime": "^7.10.1",
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.1",
+    "@babel/node": "^7.10.1",
+    "@babel/preset-env": "^7.10.1",
     "bcrypt": "5.0.0",
     "bufferutil": "^4.0.1",
     "cookie-parser": "^1.4.5",

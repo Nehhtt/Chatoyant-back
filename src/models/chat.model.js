@@ -17,10 +17,6 @@ const chatSchema = new mongoose.Schema({
       type: String,
     },
   }],
-  room: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Room',
-  },
 }, { timestamps: true });
 
 const Chat = mongoose.model('Chat', chatSchema);

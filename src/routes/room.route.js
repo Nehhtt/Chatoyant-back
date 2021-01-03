@@ -6,7 +6,7 @@ import chatController from '../controllers/chat.controller';
 import roomAuth from '../middleware/roomAuth';
 
 const {
-  createChat, deleteChat, newChatMessage, getChat,
+  createChat, deleteChat,getChat,
 } = chatController;
 
 const {

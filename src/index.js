@@ -9,11 +9,10 @@ import './db/mongoose';
 config();
 
 const {
-  createChat, deleteChat, newChatMessage,
+  newChatMessage,
 } = chatController;
 const DEBUG = debug('dev');
 const PORT = process.env.PORT || 8080;
-const jwtPublicSecret = process.env.JWT_PUBLIC_SECRET.replace(/\\n/g, '\n');
 
 const server = http.createServer(app);
 

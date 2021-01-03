@@ -20,13 +20,10 @@ export default {
           },
         });
       }
-
       const newChat = new Chat({
         chatName: req.body.chatName,
         chat: [],
-        room: currentRoom,
       });
-
       currentRoom.chats = [...currentRoom.chats, newChat];
       currentRoom.save();
       newChat.save();

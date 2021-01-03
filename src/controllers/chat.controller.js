@@ -74,7 +74,7 @@ export default {
     try {
       const currentChat = await Chat.findOne({ chatName: req.chatName });
       const currentUser = await User.findOne({
-        $or: [{ email: req.user }, { userName: req.user }],
+        $or: [{ email: req.userName }, { userName: req.userName }],
       });
       if (!currentChat || !currentUser) {
         return undefined;

@@ -94,13 +94,13 @@ export default {
   },
   getChat: async (req, res) => {
     try {
-      const currentChat = await Chat.findOne({ chatName: req.body.chatName });
+      const currentChat = await Chat.findOne({ chatName: req.query.chatName });
 
       if (!currentChat) {
         return res.status(404).json({
           status: 'error',
           error: {
-            message: `${req.body.chatName} chat not found.`,
+            message: `${req.query.chatName} chat not found.`,
           },
         });
       }

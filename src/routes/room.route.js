@@ -27,4 +27,5 @@ roomRouter.post('/kickUser', authenticate, roomAuthCheck, catchAsync(kickUser));
 roomRouter.post('/createChat', authenticate, roomAuthCheck, catchAsync(createChat));
 roomRouter.delete('/deleteChat', authenticate, roomAuthCheck, catchAsync(deleteChat));
 roomRouter.get('/getChat', authenticate, roomAuthCheck, catchAsync(getChat));
+
 export default roomRouter;

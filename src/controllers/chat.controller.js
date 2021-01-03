@@ -7,7 +7,7 @@ import User from '../models/user.model';
 const DEBUG = debug('dev');
 
 export default {
-  createChat: async (req, res, next) => {
+  createChat: async (req, res) => {
     try {
       const currentRoom = await Room.findOne({ roomName: req.body.roomName });
       const isChatUnique = await Chat.findOne({ chatName: req.body.chatName });
@@ -30,11 +30,10 @@ export default {
       currentRoom.chats = [...currentRoom.chats, newChat];
       currentRoom.save();
       newChat.save();
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         data: newChat,
       });
-      return next();
     } catch (error) {
       DEBUG(error);
       throw new ApplicationError(500, error);

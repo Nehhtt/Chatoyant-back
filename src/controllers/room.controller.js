@@ -6,14 +6,14 @@ import User from '../models/user.model';
 const DEBUG = debug('dev');
 
 export default {
-  getUserRooms: async (req, res, next) => {
+  getUserRooms: async (req, res) => {
     try {
       const currentUser = await User.findOne({
         $or: [{ email: req.user.email }, { userName: req.user.userName }],
       });
       const rooms = await Room.find({ members: currentUser });
 
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         data: {
           rooms,
@@ -23,9 +23,8 @@ export default {
       DEBUG(error);
       throw new ApplicationError(500, error);
     }
-    return next();
   },
-  createRoom: async (req, res, next) => {
+  createRoom: async (req, res) => {
     try {
       const checkRoomName = await Room.checkExistingField('roomName', req.body.roomName);
 
@@ -47,7 +46,7 @@ export default {
         chats: [],
       });
       newRoom.save();
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         data: newRoom,
       });
@@ -55,24 +54,22 @@ export default {
       DEBUG(error);
       throw new ApplicationError(500, error);
     }
-    return next();
   },
-  deleteRoom: async (req, res, next) => {
+  deleteRoom: async (req, res) => {
     try {
       const currentRoom = await Room.findOne({ roomName: req.body.roomName });
       await currentRoom.deleteOne();
 
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         message: `${req.body.roomName} delete with success`,
       });
-      next();
     } catch (error) {
       DEBUG(error);
       throw new ApplicationError(500, error);
     }
   },
-  inviteUser: async (req, res, next) => {
+  inviteUser: async (req, res) => {
     try {
       const invitedUser = await User.findOne({
         $or: [{ email: req.body.email }, { userName: req.body.userName }],
@@ -88,11 +85,10 @@ export default {
       const currentRoom = await Room.findOne({ roomName: req.body.roomName });
       currentRoom.members = [...currentRoom.members, invitedUser];
       currentRoom.save();
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         message: `${!req.body.email ? req.body.userName : req.body.email} invited to "${req.body.roomName}" sucessfully`,
       });
-      return next();
     } catch (error) {
       DEBUG(error);
       throw new ApplicationError(500, error);

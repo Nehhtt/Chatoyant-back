@@ -6,7 +6,7 @@ import chatController from '../controllers/chat.controller';
 import roomAuth from '../middleware/roomAuth';
 
 const {
-  createChat, deleteChat,
+  createChat, deleteChat, newChatMessage, getChat,
 } = chatController;
 
 const {
@@ -26,5 +26,5 @@ roomRouter.post('/kickUser', authenticate, roomAuthCheck, catchAsync(kickUser));
 
 roomRouter.post('/createChat', authenticate, roomAuthCheck, catchAsync(createChat));
 roomRouter.delete('/deleteChat', authenticate, roomAuthCheck, catchAsync(deleteChat));
-
+roomRouter.get('/getChat', authenticate, roomAuthCheck, catchAsync(getChat));
 export default roomRouter;

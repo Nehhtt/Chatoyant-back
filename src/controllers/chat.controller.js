@@ -92,4 +92,24 @@ export default {
       throw new ApplicationError(500, error);
     }
   },
+  getChat: async (req, res) => {
+    try {
+      const currentChat = await Chat.findOne({ chatName: req.body.chatName });
+
+      if (!currentChat) {
+        return res.status(404).json({
+          status: 'error',
+          error: {
+            message: `${req.body.chatName} chat not found.`,
+          },
+        });
+      }
+      return res.status(200).json({
+        status: 'success',
+        data: currentChat,
+      });
+    } catch (error) {
+      throw new ApplicationError(500, error);
+    }
+  },
 };
